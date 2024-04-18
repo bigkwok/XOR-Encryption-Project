@@ -1,5 +1,3 @@
-import math
-
 characters = [
     # lowercase characters
 'a','b','c','d','e','f','g','h','i','j','k','l','m','n','o','p','q','r','s','t','u','v','w','x','y','z',
@@ -19,24 +17,22 @@ def decode(binary):
     charIndex = int(binary, 2)
     return characters[charIndex]
 
-
 def XOR(bit1, bit2):
-
     if bit1 == bit2:
-        return '0'
+        return "0"
     else:
-        return '1'
+        return "1"
 
 def XORonByte(byte, key):
 
     emsg = ""
 
     for i in range(len(byte)):
-        emsg +=  XOR(byte[i], key[i])
-    
+        emsg += XOR(byte[i], key[i])
+
     return emsg
 
-#print(XORonByte('10101', '00101'))
+print(XORonByte("10101", "00101"))
 
 def XORonLetter(letter, keyLetter):
 
@@ -47,37 +43,18 @@ def XORonLetter(letter, keyLetter):
 
     return decode(encryptedLetter)
 
+print(XORonLetter("r", "f"))
+
 def XORonSentence(sentence, key):
 
     encryptedSentence = ""
-    genKey = generateKey(sentence, key)
 
     for i in range(len(sentence)):
 
-        encryptedSentence += XORonLetter(sentence[i], genKey[i])
+        encryptedSentence += XORonLetter(sentence[i], key[i])
 
     return encryptedSentence
 
-def generateKey(message, key):
+print(XORonSentence("hello", "axlvw"))
 
-    if len(message) == len(key):
-        return key
-    elif len(message) < len(key):
-        return key[0:len(message)]
-    else:
-        tempKey = ""
-        repititions = math.floor(len(message)/len(key))
-        remainder = len(message) % len(key)
-
-        for i in range(repititions):
-            tempKey += key
-
-        tempKey += key[0:remainder]
-
-        return tempKey
-    
-
-message = input("Please enter your message that you either want to encrypt or decrypt. ")
-key = input("Please enter the key. ")
-
-print("Here is your encrypted/decrypted message: ", XORonSentence(message, key))
+print(XORonSentence("htaEy", "axlvw"))
